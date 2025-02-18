@@ -30,13 +30,7 @@ While simplistic, this method has reportedly been effective in some cases.
 
 Below is a demo video showcasing the simulation in action:
 
-<video width="640" controls>
-  <source src="[[video/demo.mp4](https://github.com/rubahilang/recaptcha-phish-v2/blob/main/video/demo.mp4)](https://github.com/rubahilang/recaptcha-phish-v2/blob/main/video/demo.mp4)" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-[![Demo Video]]([https://asciinema.org/a/113463](https://github.com/rubahilang/recaptcha-phish-v2/blob/main/video/demo.mp4))
-
+[![Demo Video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://github.com/rubahilang/recaptcha-phish-v2/blob/main/video/demo.mp4)
 
 ---
 
