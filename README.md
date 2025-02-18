@@ -30,7 +30,7 @@ While simplistic, this method has reportedly been effective in some cases.
 
 Below is a demo video showcasing the simulation in action:
 
-[![Demo Video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://github.com/rubahilang/recaptcha-phish-v2/blob/main/video/demo.mp4)
+![Demo](https://github.com/rubahilang/recaptcha-phish-v2/blob/main/video/demo.gif)
 
 ---
 
