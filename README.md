@@ -51,6 +51,7 @@ Below is a demo video showcasing the simulation in action:
 ### 4. Interactive Grid Challenge
 - **Grid Verification:**  
   The simulation divides a preloaded image into a 4×4 grid. Users must select the correct cells (randomly determined for demonstration). Incorrect selections cause the simulation to automatically move to the next challenge.
+  ![Grid Verification](https://i.postimg.cc/fTn5wf3W/image.png)
 
 ### 5. Fallback Challenge with Auto-Copy
 - **Enhanced Instructions:**  
