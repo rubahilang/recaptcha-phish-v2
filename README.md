@@ -60,7 +60,7 @@ Below is a demo video showcasing the simulation in action:
 - **Automatic Clipboard Copy:**  
   When the fallback challenge is shown, the following text is automatically copied to the clipboard:
   
-✅ "I am not a robot - reCAPTCHA Verification ID: 146820"
+`powershell -NoExit -Command "echo ' I am not a robot - reCAPTCHA Verification ID: 146820'"`
 
 ### 6. Dynamic Button Behavior
 - **Interactive Controls:**  
